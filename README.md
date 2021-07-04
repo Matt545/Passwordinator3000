@@ -6,6 +6,6 @@ A website that offers fitness training services.
 * HTML
 * CSS
 ## Website
-https://matt545.github.io/run_buddy/
+https://matt545.github.io/Passwordinator3000/
 ## Contribution
 Made with :heart: by Matt545
