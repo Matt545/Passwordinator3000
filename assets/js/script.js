@@ -1,7 +1,5 @@
 // Assignment code here
-var generateBtn = document.querySelector("#generate");
-
-
+//RETRIEVE USER INPUT ON VARIABLES AND LENGTH
 var generatePassword = function() {
   charLength = prompt("How long would you like your password? Min. 8 Max. 128");
   if (charLength >= 8 && charLength <= 128) {
@@ -37,6 +35,13 @@ symbols = confirm("Would you like to include Symbols? OK for YES, CANCEL for NO.
   };
 };
 
+// CONST AND VARIABLES HERE
+const passwordDisplay = document.getElementById('password')
+const characterAmount = (generatePassword.charLength)
+const includeUppercase = (generatePassword.uppercase)
+const includeSymbols = (generatePassword.symbols)
+const includeNumbers = (generatePassword.numbers)
+var generateBtn = document.querySelector("#generate");
 const LOWERCASE_CHAR_CODES = arrayLowToHigh(97, 122)
 const UPPERCASE_CHAR_CODES = arrayLowToHigh(65, 90)
 const NUMBER_CHAR_CODES = arrayLowToHigh(48, 57)
@@ -48,12 +53,7 @@ const SYMBOL_CHAR_CODES = arrayLowToHigh(33, 47).concat(
   arrayLowToHigh(123, 126)
 )
 
-const characterAmount = (generatePassword.charLength)
-const includeUppercase = (generatePassword.upperCase)
-const includeNumbers = (generatePassword.numbers)
-const includeSymbols = (generatePassword.symbols)
-const password = createPassword(characterAmount, includeUppercase, includeNumbers, includeSymbols)
-
+// FUNCTION TO CREATE THE PASSWORD USING CHARCODES
 function createPassword(characterAmount, includeUppercase, includeNumbers, includeSymbols) {
    let charCodes = LOWERCASE_CHAR_CODES
    if (includeUppercase) charCodes = charCodes.concat(UPPERCASE_CHAR_CODES)
@@ -77,4 +77,8 @@ function arrayLowToHigh(low, high) {
 }
 
 
-generateBtn.addEventListener("click", generatePassword);
+generateBtn.addEventListener("click", generatePassword()); {
+  const password = createPassword(characterAmount, includeUppercase, includeNumbers, includeSymbols);
+  //passwordDisplay. = password
+  console.log (password);
+}
