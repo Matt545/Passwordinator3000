@@ -1,4 +1,7 @@
 // Assignment code here
+var alpha = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+var numbers = "0123456789";
+var symbols = "!@#$%^&*_-+=";
 
 
 // Get references to the #generate element
