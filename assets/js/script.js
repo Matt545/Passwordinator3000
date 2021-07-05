@@ -1,47 +1,44 @@
 // Assignment code here
 //RETRIEVE USER INPUT ON VARIABLES AND LENGTH
-var generatePassword = function() {
-  charLength = prompt("How long would you like your password? Min. 8 Max. 128");
-  if (charLength >= 8 && charLength <= 128) {
-    console.log(charLength);
-  }
-  else {
-    alert("Please enter a valid number. Click the button to try again.");
-    return;
-  };
+var characterAmount = Number(prompt("How many characters would you like your password to be?"));
+while (isNaN(length) || length < 8 || length > 128) length = Number(prompt("Length must be 8-128 characters. How many characters would you like your password to be?"));
 
-upperCase = confirm("Would you like to include Uppercase? OK for YES, CANCEL for NO.");
-  if (upperCase) {
-    console.log("YESSIR");
-  }
-  else {
-    console.log("NO");
-  };
-
-numbers = confirm("Would you like to include Numbers? OK for YES, CANCEL for NO.");
-  if (numbers) {
-    console.log("YESSIR NUMBERS");
-  }
-  else {
-    console.log("NO NUMBERS");
-  };
-
-symbols = confirm("Would you like to include Symbols? OK for YES, CANCEL for NO.");
-  if (symbols) {
-    console.log("YESSIR SYMBOLS");
-  }
-  else {
-    console.log("NO SYMBOLS");
-  };
-};
-
-// CONST AND VARIABLES HERE
-const passwordDisplay = document.getElementById('password')
-const characterAmount = (generatePassword.charLength)
-const includeUppercase = (generatePassword.uppercase)
-const includeSymbols = (generatePassword.symbols)
-const includeNumbers = (generatePassword.numbers)
+var upperCase = confirm("Would you like to use uppercase letters?");
+var numbers = confirm("Would you like to use numbers?");
+var symbols = confirm("Would you like to use special characters?");
 var generateBtn = document.querySelector("#generate");
+
+while (!upperCase && !numbers && !symbols) {
+  alert("You must select at least one character type!");
+  upperCase = confirm("Would you like to use uppercase letters?");
+  numbers = confirm("Would you like to use numbers?");
+  symbols = confirm("Would you like to use special characters?");
+}
+
+
+// FUNCTION TO CREATE THE PASSWORD USING CHARCODES
+function createPassword(characterAmount, upperCase, numbers, symbols) {
+  let charCodes = LOWERCASE_CHAR_CODES
+  if (upperCase) charCodes = charCodes.concat(UPPERCASE_CHAR_CODES)
+  if (symbols) charCodes = charCodes.concat(SYMBOL_CHAR_CODES)
+  if (numbers) charCodes = charCodes.concat(NUMBER_CHAR_CODES)
+  
+  const passwordCharacters = []
+  for (let i = 0; i < characterAmount; i++) {
+    const characterCode = charCodes[Math.floor(Math.random() * charCodes.length)]
+    passwordCharacters.push(String.fromCharCode(characterCode))
+  }
+  return passwordCharacters.join('')
+}
+
+function arrayLowToHigh(low, high) {
+  const array = []
+  for (let i = low; i <= high; i++) {
+    array.push(i)
+  }
+  return array
+}
+//ARRAY CONST
 const LOWERCASE_CHAR_CODES = arrayLowToHigh(97, 122)
 const UPPERCASE_CHAR_CODES = arrayLowToHigh(65, 90)
 const NUMBER_CHAR_CODES = arrayLowToHigh(48, 57)
@@ -53,32 +50,9 @@ const SYMBOL_CHAR_CODES = arrayLowToHigh(33, 47).concat(
   arrayLowToHigh(123, 126)
 )
 
-// FUNCTION TO CREATE THE PASSWORD USING CHARCODES
-function createPassword(characterAmount, includeUppercase, includeNumbers, includeSymbols) {
-   let charCodes = LOWERCASE_CHAR_CODES
-   if (includeUppercase) charCodes = charCodes.concat(UPPERCASE_CHAR_CODES)
-   if (includeNumbers) charCodes = charCodes.concat(NUMBER_CHAR_CODES)
-   if (includeSymbols) charCodes = charCodes.concat(SYMBOL_CHAR_CODES)
+generateBtn.onclick = function() {
+  const password = createPassword(characterAmount, upperCase, numbers, symbols);
+  alert("Your password is" + password);
+  console.log(password)
 
-   const passwordCharacters = []
-   for (let i = 0; i < characterAmount; i++) {
-     const characterCode = charCodes[Math.floor(Math.random() * characterAmount)]
-     passwordCharacters.push(String.fromCharCode(characterCode))
-   }
-   return passwordCharacters.join('')
-}
-
-function arrayLowToHigh(low, high) {
-  const array = []
-  for (let i = low; i <= high; i++) {
-    array.push(i)
-  }
-  return array
-}
-
-
-generateBtn.addEventListener("click", generatePassword()); {
-  const password = createPassword(characterAmount, includeUppercase, includeNumbers, includeSymbols);
-  //passwordDisplay. = password
-  console.log (password);
-}
+};
